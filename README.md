@@ -98,14 +98,14 @@ psql -h <rds_endpoint> -U <db_username> -d <db_name>
 
 Create the order_events table schema (adjust as necessary):
 
-```CREATE TABLE order_events (
+CREATE TABLE order_events (
     id SERIAL PRIMARY KEY,
     order_id INTEGER NOT NULL,
     user_id INTEGER NOT NULL,
     total_amount DECIMAL(10,2) NOT NULL,
     notified BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-); ```
+);
 
 Insert sample order data for testing:
 INSERT INTO order_events (order_id, user_id, total_amount, notified) VALUES
@@ -133,7 +133,11 @@ This will delete the RDS instance, Lambda, SNS topic, Secrets Manager secret, an
 Notes and Best Practices
 
 Security: This example uses a publicly accessible RDS instance for simplicity. For production, place your RDS in private subnets with no public access.
+
 Secrets Management: Database credentials are stored securely in Secrets Manager and retrieved by Lambda at runtime.
+
 Lambda VPC Access: Lambda is deployed inside the same VPC and security group to access RDS securely.
+
 Timeouts and Retries: Adjust Lambda timeout and error handling as per your needs.
+
 Schema & Logic: Customize the database schema and Lambda logic to fit your application.
